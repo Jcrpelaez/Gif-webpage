@@ -24,6 +24,25 @@ $(document).on("click", ".searchButton", function() {
     url: queryURL,
     method: "GET"
   }).done(function(response) {
-    console.log(response);
+    for (var i = 0; i < response.data.length; i++) {
+      var searchDiv = $("<div class ='search-Item'>");
+      var rating = response.rating;
+      var pOne = $("<p>").text("Rating: " + rating);
+      var animatedGif = response.data[i].images.fixed_height.url;
+      var stillGif = response.data[i].images.fixed_height_still.url;
+      var image = $("<img>");
+      image.attr("src", stillGif);
+      image.attr("data-still", stillGif);
+      image.attr("data-animated", animatedGif);
+      image.attr("data-animated", "still");
+      image.addClass("searchImage");
+      searchDiv.append(pOne);
+      searchDiv.append(image);
+      $("searches").append(searchDiv); 
+    }
   });
 });
+
+$("#addSearch").on("click",function(){
+  var newSearch = $("input").eq(0).val();
+})
